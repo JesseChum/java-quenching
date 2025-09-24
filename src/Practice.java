@@ -11,7 +11,14 @@ public class Practice {
      * @return the sum of the odd numbers in the array
      */
     public static int oddSum(int[] nums) {
-        return 0;
+        int sum = 0;
+        if (nums == null)
+            return 0;
+        for (int num : nums) {
+            if (num % 2 != 0)
+                sum += num;
+        }
+        return sum;
     }
 
     /**
@@ -23,10 +30,31 @@ public class Practice {
      * @param words a set of words
      * @return the shortest word in the set with a lexicographic tiebreaker
      * @throws IllegalArgumentException if words is empty
-     * @throws NullPointerException if words is null
+     * @throws NullPointerException     if words is null
      */
     public static String shortestWord(Set<String> words) {
-        return null;
+        if (words == null) {
+            throw new NullPointerException("Word is null");
+        }
+        if (words.isEmpty()) {
+            throw new IllegalArgumentException("Word is empty");
+        }
+
+        String shortest = null;
+
+        for (String word : words) {
+            if (shortest == null)
+                shortest = word;
+            if (word.length() < shortest.length()) {
+                shortest = word;
+            }
+            if (word.length() == shortest.length()) {
+                if (word.compareTo(shortest) < 0) {
+                    shortest = word;
+                }
+            }
+        }
+        return shortest;
     }
 
     /**
@@ -54,22 +82,22 @@ public class Practice {
     }
 
     /**
-     * Returns a frequency map counting how frequently items appear in a linked list.
+     * Returns a frequency map counting how frequently items appear in a linked
+     * list.
      * 
      * Example:
-     *   Input: a -> x -> a -> a -> x -> y
-     *   Output: {a:3, x:2, y: 1}
+     * Input: a -> x -> a -> a -> x -> y
+     * Output: {a:3, x:2, y: 1}
      * 
      * Returns an empty map if head is null
      * 
-     * @param <T> the type of data held by the list
+     * @param <T>  the type of data held by the list
      * @param head the head of the list
      * @return a frequency map of values in the list
      */
     public static <T> Map<T, Integer> frequencies(ListNode<T> head) {
         return null;
     }
-
 
     /**
      * Returns the number of levels in the tree.
@@ -83,27 +111,26 @@ public class Practice {
         return 0;
     }
 
-
     /**
      * Returns the sum at a specified level in a binary tree.
      * 
      * For example, if the given level was 3:
-     *       5
-     *     /   \
-     *    8     4
-     *   / \   / 
-     *  7  9  2
-     *    /
-     *   1
+     * 5
+     * / \
+     * 8 4
+     * / \ /
+     * 7 9 2
+     * /
+     * 1
      * 
      * Nodes at level 3: 7, 9, and 2
-     * Sum of nodes at level 3: 18 
+     * Sum of nodes at level 3: 18
      * 
      * The root is considered to be at level 1.
      * 
      * Returns 0 if the tree is empty or if the level is not present in the tree.
      * 
-     * @param root the root of the binary tree
+     * @param root  the root of the binary tree
      * @param level the level to sum
      * @return the sum of the nodes at the given level
      */
@@ -111,10 +138,9 @@ public class Practice {
         return 0;
     }
 
-
     /**
      * Returns true if the sum of the values in a given tree is equal to the sum
-     * of the values in the given list. 
+     * of the values in the given list.
      * 
      * An empty tree or list is considered to have a sum of 0.
      * 
@@ -127,7 +153,8 @@ public class Practice {
     }
 
     /**
-     * Returns the sum of all the vertices in a graph that are reachable from a given
+     * Returns the sum of all the vertices in a graph that are reachable from a
+     * given
      * starting vertex.
      * 
      * Returns 0 if the starting vertex is null.
