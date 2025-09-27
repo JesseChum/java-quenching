@@ -67,9 +67,23 @@ public class Practice {
      * @throws NullPointerException if ages is null
      */
     public static Set<String> adults(Map<String, Integer> ages) {
-        return null;
-    }
+        if (ages == null) {
+            throw new NullPointerException();
+        }
 
+        Set<String> result = new HashSet<>();
+
+        for (String name : ages.keySet()){
+            int age = ages.get(name);
+
+            if (age >= 18){
+                result.add(name);
+            }
+        }
+
+        return result;
+    }
+    
     /**
      * Returns the biggest number in a linked list.
      * 
@@ -78,7 +92,22 @@ public class Practice {
      * @throws IllegalArgumentException if head is null
      */
     public static int biggestNumber(ListNode<Integer> head) {
-        return 0;
+        if (head == null){
+            throw new IllegalArgumentException("list is empty");
+        }
+
+        int biggest = head.getValue();
+
+        ListNode<Integer> current = head.getNext();
+
+        while (current != null){
+            int value = current.getValue();
+            if (value > biggest) {
+                biggest = value;
+            }
+            current = current.getNext();
+        }
+        return biggest;
     }
 
     /**
@@ -96,7 +125,7 @@ public class Practice {
      * @return a frequency map of values in the list
      */
     public static <T> Map<T, Integer> frequencies(ListNode<T> head) {
-        return null;
+
     }
 
     /**
