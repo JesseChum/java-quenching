@@ -148,10 +148,8 @@ public class Practice {
             return 0;
         }
 
-        int leftLevels = levelCount(root.getLeft());
-        int rightLevels = levelCount(root.getRight());
-
-        return 1 + Math.max(leftLevels, rightLevels);
+        return 1 + Math.max(levelCount(root.left),
+        levelCount(root.right));
     }
 
     /**
@@ -181,13 +179,13 @@ public class Practice {
         if (root == null){
             return 0;
         }
-
         if (level == 1){
-            return root.getValue();
+            return root.data;
         }
 
-        return sumAtLevel(root.getLeft(), level -1) +
-        sumAtLevel(root.getRight(), level -1);
+        return sumAtLevel(root.left, level -1) +
+        sumAtLevel(root.right, level -1);
+       
     }
 
     /**
@@ -201,18 +199,25 @@ public class Practice {
      * @return true if the sums are equal, false otherwise
      */
     public static boolean sumMatch(BinaryTreeNode<Integer> root, ListNode<Integer> head) {
-        
-        if(root = null){
-            return 0;
+    int treeSum = sumTree(root);
+    int listSum = sumList(head);
+    return treeSum == listSum;
+    }
+
+    private static int sumTree(BinaryTreeNode<Integer> root) {
+        if (root == null) return 0;
+        return root.data + sumTree(root.left) + sumTree(root.right);
+    }
+
+    private static int sumList(ListNode<Integer> head){
+        int sum = 0;
+        ListNode<Integer> current = head;
+        while (current != null) {
+            sum += current.data;
+            current = current.next;
         }
-
-        if(level 1 == 1) {
-        return root.getValue();
+        return sum;
     }
-        return sumAtLevel(root.getLeft(), level -1) +
-        sumAtLevel(root.getRight(), level -1);
-    }
-
     
     /**
      * Returns the sum of all the vertices in a graph that are reachable from a
@@ -225,7 +230,28 @@ public class Practice {
      * @return the sum of all the vertices
      */
     public static int graphSum(Vertex<Integer> start) {
-        return 0;
+        if(start == null){
+            return 0;
+        }
+
+        Set<Vertex<Integer>> visited = new HashSet<>();
+        return Sum(start, visited);
+
+    }
+
+    private static int Sum(Vertex<Integer> v, Set<Vertex<Integer>> visited){
+        if (visited.contains(v)){
+            return 0;
+        }
+
+        visited.add(v);
+
+        int sum = v.data;
+
+        for (Vertex<Integer> neighbor : v.neighbors){
+            sum += Sum(neighbor, visited);
+        }
+        return sum;
     }
 
     /**
@@ -237,6 +263,29 @@ public class Practice {
      * @return the count of vertices with outdegree 0
      */
     public static int sinkCount(Vertex<Integer> start) {
-        return 0;
+        if (start == null){
+            return 0;
+        }
+
+        Set<Vertex<Integer>>visited = new HashSet<>();
+        return sinkCount(start, visited);
+    }
+
+    private static int sinkCount(Vertex<Integer> v, Set<Vertex<Integer>> visited) {
+        if (visited.contains(v)){
+            return 0;
+        }
+
+        visited.add(v);
+
+        int count = 0;
+        if(v.neighbors.isEmpty()){
+            count = 1;
+        }
+
+        for (Vertex<Integer> neighbor : v.neighbors){
+            count += sinkCount(neighbor, visited);
+        }
+        return count;
     }
 }
