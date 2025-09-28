@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -92,23 +94,16 @@ public class Practice {
      * @throws IllegalArgumentException if head is null
      */
     public static int biggestNumber(ListNode<Integer> head) {
-        if (head == null){
-            throw new IllegalArgumentException("list is empty");
+         if (head == null) throw new IllegalArgumentException();
+        int biggestNumber = head.data;
+        ListNode<Integer> current = head;
+        while (current != null) {
+            if (current.data > biggestNumber) biggestNumber = current.data;
+            current = current.next;
         }
-
-        int biggest = head.getValue();
-
-        ListNode<Integer> current = head.getNext();
-
-        while (current != null){
-            int value = current.getValue();
-            if (value > biggest) {
-                biggest = value;
-            }
-            current = current.getNext();
-        }
-        return biggest;
+        return biggestNumber;
     }
+
 
     /**
      * Returns a frequency map counting how frequently items appear in a linked
@@ -125,24 +120,19 @@ public class Practice {
      * @return a frequency map of values in the list
      */
     public static <T> Map<T, Integer> frequencies(ListNode<T> head) {
-        Map<T, Integer> freqMap = new HashMap<>();
-
-        if(head == null) {
-            return freqMap;
-        }
-
+        Map<T, Integer> results = new HashMap<>();
+        if (head == null) return results;
         ListNode<T> current = head;
-        while(current != null){
-            T value = current.getValue();
-
-            if (freqMap.containsKey(value)) {
-                freqMap.put(value, freqMap.get(value) + 1);
+        while (current != null) {
+            if (results.containsKey(current.data)) {
+                results.put(current.data, results.get(current.data) + 1);
             } else {
-                freqMap.put(value, 1);
+                results.put(current.data, 1);
             }
-            current = current.getNext();
+            current = current.next;
         }
-        return freqMap;
+
+        return results;
     }
 
     /**
@@ -188,7 +178,16 @@ public class Practice {
      * @return the sum of the nodes at the given level
      */
     public static int sumAtLevel(BinaryTreeNode<Integer> root, int level) {
-        return 0;
+        if (root == null){
+            return 0;
+        }
+
+        if (level == 1){
+            return root.getValue();
+        }
+
+        return sumAtLevel(root.getLeft(), level -1) +
+        sumAtLevel(root.getRight(), level -1);
     }
 
     /**
@@ -202,9 +201,19 @@ public class Practice {
      * @return true if the sums are equal, false otherwise
      */
     public static boolean sumMatch(BinaryTreeNode<Integer> root, ListNode<Integer> head) {
-        return false;
+        
+        if(root = null){
+            return 0;
+        }
+
+        if(level 1 == 1) {
+        return root.getValue();
+    }
+        return sumAtLevel(root.getLeft(), level -1) +
+        sumAtLevel(root.getRight(), level -1);
     }
 
+    
     /**
      * Returns the sum of all the vertices in a graph that are reachable from a
      * given
